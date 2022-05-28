@@ -14,14 +14,23 @@ build-job:       # This job runs in the build stage, which runs first.
     - apt-get update -y
     - apt-get install openssh-server -y
     - apt-get install openssh-client -y
+    - apt-get install curl -y
     - eval `ssh-agent -s`
     - ssh-add <(echo "$PRIVATE_KEY")
     - mkdir -p ~/.ssh
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - ssh ubuntu@$PROD_SERVER_IP
-    - echo $PRIVATE_KEY
-    - hostname
-    - exit
+    - curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
+    - apt -y install nodejs
+    - mkdir code
+    - cd code 
+    - git clone -b main --single-branch https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/shivarchit/blocking-node.git
+    - cd blocking-node
+    - npm i
+    - node app.js
+    - echo "Server Started at 3000"
+    #- echo $PRIVATE_KEY
+    - hostname    
 
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
