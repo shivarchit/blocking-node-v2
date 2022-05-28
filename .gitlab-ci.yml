@@ -15,6 +15,7 @@ build-job:       # This job runs in the build stage, which runs first.
     - apt-get install openssh-server -y
     - apt-get install openssh-client -y
     - apt-get install curl -y
+    - apt-get install sudo -y
     - eval `ssh-agent -s`
     - ssh-add <(echo "$PRIVATE_KEY")
     - mkdir -p ~/.ssh
