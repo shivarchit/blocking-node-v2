@@ -9,7 +9,7 @@ build-job:       # This job runs in the build stage, which runs first.
     - echo "Compiling the code..."
     - echo $PROD_SERVER_IP
     - echo "Compile complete."
-    - ssh -i $PRIVATE_KEY ubuntu@$PROD_SERVER_IP
+    - ssh ubuntu@$PROD_SERVER_IP
     - hostname
     - exit
 
