@@ -11,9 +11,9 @@ build-job:       # This job runs in the build stage, which runs first.
     - echo $PROD_SERVER_IP
     - echo "Compile complete."
     - apt-get clean
-    - apt-get update
-    - apt-get install openssh-server
-    - apt-get install openssh-client 
+    - apt-get update -y
+    - apt-get install openssh-server -y
+    - apt-get install openssh-client -y
     - eval `ssh-agent -s`
     - ssh-add <(echo "$PRIVATE_KEY")
     - mkdir -p ~/.ssh
